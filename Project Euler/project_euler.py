@@ -1,6 +1,7 @@
 import itertools
 from fractions import gcd
-import operator         
+import operator 
+import math        
 
 def erat2( ):
     D = {  }
@@ -97,4 +98,66 @@ def prob_10():
         p = pit.next()
     print s                
     
-                
+
+def prob_12():
+    def no_of_divisors(n): #this function is not efficient
+        return len([x for x in range(1,n+1) if (n%x==0)])
+    i,tn = 1,1
+    while (no_of_divisors(tn) < 501):
+        tn = sum(range(i+1))
+        i = i + 1
+    print tn
+    
+def prob_14():
+    N = 1000000
+    def collatz_len(num):
+        n,i = num,1
+        while (n != 1):
+            if (n%2 == 0):
+                n = n/2
+            else:
+                n = 3*n+1
+            i = i + 1
+        return (num,i)
+    print max((collatz_len(x) for x in range(2,N)),key=lambda x:x[1])[0]
+
+def prob_16():
+    N, s = 2**1000, 0
+    while ( N != 0):
+        s += N % 10
+        N = N/10
+    print s
+
+def prob_20():
+    N, s = math.factorial(100) , 0
+    while ( N != 0):
+        s += N % 10
+        N = N/10
+    print s
+
+def prob_25():
+    a,b,n = 1,1,1
+    while (len(str(a)) < 1000):
+        a,b = b,a+b
+        n = n + 1
+    print n
+
+def prob_27():
+    def is_prime(n):
+        for i in range(2, int(math.sqrt(abs(n)))):
+            if (n%i == 0):
+                return False
+        return True    
+    maxc,x,y = 0,0,0
+    for s,t in  ((a,b) for a in range(-1000,1000) for b in range (-1000,1000)):
+        n = 0
+        while (is_prime(n**2 + s*n + t)):
+            if (n+1 > maxc):
+                maxc = n+1
+                prod = s*t
+                x,y = s,t
+            n = n + 1
+    print prod,x,y           
+
+def prob_29():
+    print len({a**b for a in range(2,101) for b in range(2,101)})
