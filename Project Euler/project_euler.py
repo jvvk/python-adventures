@@ -17,6 +17,22 @@ def erat2( ):
                 x += p
             D[x] = p
 
+def is_prime(n):
+        for i in range(2, int(math.sqrt(abs(n)))):
+            if (n%i == 0):
+                return False
+        return True    
+
+def lcm(a,b):
+        return (a*b)/gcd(a,b)
+
+def no_of_divisors(n): #this is highly inefficient
+    c = 0
+    for i in range(1,n+1):
+        if (n % i == 0):
+            c = c + 1
+    return c
+
 def prob_1():
     print sum((x for x in range(1000) if x%3==0 or x%5==0))
 
@@ -41,15 +57,12 @@ def prob_3():
     print max_prime            
 
 def prob_4():
-    N=100
+    N = 100
     print [x*y for x in range(N) for y in range(N) if (str(x*y) == str(x*y)[::-1])][-1]
     
 def prob_5():
-    N = 10
-    def lcm(a,b):
-        return (a*b)/gcd(a,b)
     mult = 1
-    for i in range(2,N+1):
+    for i in range(2,11):
         mult = lcm(mult,i)
     print mult
 
@@ -98,18 +111,14 @@ def prob_10():
         p = pit.next()
     print s                
     
-
-def prob_12():
-    def no_of_divisors(n): #this function is not efficient
-        return len([x for x in range(1,n+1) if (n%x==0)])
-    i,tn = 1,1
-    while (no_of_divisors(tn) < 501):
-        tn = sum(range(i+1))
-        i = i + 1
-    print tn
+# def prob_12():#this is highly inefficient
+#     i,tn = 1,1
+#     while (no_of_divisors(tn) < 501):
+#         tn = sum(range(i+1))
+#         i = i + 1
+#     print tn
     
 def prob_14():
-    N = 1000000
     def collatz_len(num):
         n,i = num,1
         while (n != 1):
@@ -119,7 +128,7 @@ def prob_14():
                 n = 3*n+1
             i = i + 1
         return (num,i)
-    print max((collatz_len(x) for x in range(2,N)),key=lambda x:x[1])[0]
+    print max((collatz_len(x) for x in range(2,1000000)),key=lambda x:x[1])[0]
 
 def prob_16():
     N, s = 2**1000, 0
@@ -135,6 +144,19 @@ def prob_20():
         N = N/10
     print s
 
+def prob_22():
+    totalsc = 0
+    with open('names.txt') as f:
+        for i,nm in enumerate(sorted(f.read().split(','))):
+            totalsc += (i+1)*sum(map(lambda n: ord(n)-ord('A')+1,nm[1:-1]))
+    print totalsc
+
+def prob_24():
+    for i,perm in enumerate(itertools.permutations("0123456789")):
+        if (i == 999999):
+            print reduce(operator.add,perm,'')
+            return
+
 def prob_25():
     a,b,n = 1,1,1
     while (len(str(a)) < 1000):
@@ -143,21 +165,41 @@ def prob_25():
     print n
 
 def prob_27():
-    def is_prime(n):
-        for i in range(2, int(math.sqrt(abs(n)))):
-            if (n%i == 0):
-                return False
-        return True    
-    maxc,x,y = 0,0,0
+    maxc = 0
     for s,t in  ((a,b) for a in range(-1000,1000) for b in range (-1000,1000)):
         n = 0
         while (is_prime(n**2 + s*n + t)):
             if (n+1 > maxc):
                 maxc = n+1
                 prod = s*t
-                x,y = s,t
             n = n + 1
-    print prod,x,y           
+    print prod           
+
+def prob_28():
+    s,i,pos = 1,1,1
+    for i in range(1,501):
+        for x in range(4):
+            pos += 2*i
+            s += pos
+    print s
 
 def prob_29():
     print len({a**b for a in range(2,101) for b in range(2,101)})
+
+def prob_49():
+    perms={}
+    for i in range(1000,10000):
+        if (is_prime(i)):
+            ss = ''.join(sorted(str(i)))
+            if(perms.get(ss) is None):            
+                perms[ss] = [str(i)]
+            else: 
+                perms[ss].append(str(i))
+    for ln in [x for x in perms.keys() if len(perms[x])>=3]:
+        for i in range(0,len(perms[ln])-2):
+            for j in range(i+1,len(perms[ln])-1):
+                for k in range(j+1,len(perms[ln])):
+                    if ((int(perms[ln][k])-int(perms[ln][j])) == (int(perms[ln][j])-int(perms[ln][i])) == 3330):
+                        print perms[ln][i]+perms[ln][j]+perms[ln][k]
+                        return
+
