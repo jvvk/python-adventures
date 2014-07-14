@@ -1,0 +1,6 @@
+numpy==1.8.1
+scipy==0.14.0
+Cython==0.20.2
+
+# this will run setup.py in the current folder
+-e .

@@ -1,0 +1,13 @@
+##HJM Testcase
+##product can be "CAP" or "ZCB"
+##Frequency can be "Monthly", "Quarterly","SemiAnnually", "Yearly"
+##Factors can be 1-10
+##Number of simulations should be less than 10000
+hjm_testcase:
+    Principal : 1.0
+    Product : "CAP"
+    Maturity : 10.0
+    InterestRate : 0.4
+    Frequency : "Quarterly"
+    Factors : 3
+    NoOfSimulations : 1000

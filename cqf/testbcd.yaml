@@ -1,0 +1,24 @@
+##BCD Testcase
+##Entities can be a subset of the following:
+##"AAL.L", "ABF.L", "ABG.L","ADM.L","AGK.L", "AMEC.L","ANTO.L","ARM.L","ATST.L","AU.L","AV.L","AZN.L","BA.L","BARC.L",BATS.L","BAY.L","BG.L"
+##,"BLND.L","BLT.L","BNZL.L","BP.L","BRBY.L","BSY.L","BT-A.L","CCL.L","CNA.L","CNE.L","COB.L","CPG.L","CPI.L","CSCG.L","DGE.L","ESSR.L","FRES.L","GFS.L"
+##Frequency can be "Monthly", "Quarterly","SemiAnnually", "Yearly"
+##IncludeAccruedPremium can be True or False
+##Seniority(k) = 1
+##Recovery rate can be a decimal beteween 0.0 to 1.0
+##Number of simulations should be less than 10000
+##maturityDate should be in dd/mm/yy format
+##EffectiveDate should be in dd/mm/yy format
+##Number of simulations should be less than 10000
+##CopulaType can be "Gaussian" or "StudentT"
+
+bcd_testcase:
+    Entities : ["AAL.L","AGK.L","ATST.L","BA.L","BAY.L"]
+    Frequency : "Monthly"
+    IncludeAccruedPremium : True
+    Seniority : 1
+    RecoveryRate : 0.4
+    EffectiveDate : 20/06/2010
+    MaturityDate : 20/09/2015
+    CopulaType : "StudentT"
+    NoOfSimulations : 1000
